@@ -1,13 +1,13 @@
-import React, { useContext } from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { AuthProvider, AuthContext } from "./firebase/AuthController";
-import { Icon } from "react-native-paper";
-import LoginScreen from "./components/Login";
-import LocationList from "./components/Locations";
-import AddLocation from "./components/AddLocation";
-import MapScreen from "./components/Map";
-import Capitals from "./components/Capitals";
+import React, { useContext } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { AuthProvider, AuthContext } from './firebase/AuthController';
+import { Icon } from 'react-native-paper';
+import LoginScreen from './components/Login';
+import MapScreen from './components/Map';
+import AddLocation from './components/AddLocation';
+import LocationList from './components/Locations';
+import Capitals from './components/Capitals';
 
 const Tab = createBottomTabNavigator();
 

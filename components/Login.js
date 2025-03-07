@@ -1,8 +1,8 @@
-import React, { useState, useContext } from "react";
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
-import { signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { AuthContext } from "../firebase/AuthController";
-import { auth } from "../firebase/FirebaseConfig";
+import React, { useState, useContext } from 'react';
+import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { AuthContext } from '../firebase/AuthController';
+import { auth } from '../firebase/FirebaseConfig';
 
 const Login = () => {
   const [email, setEmail] = useState("");
