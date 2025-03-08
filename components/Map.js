@@ -1,53 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import { View, Alert } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import * as Location from 'expo-location';
 import { useRoute } from '@react-navigation/native';
+import * as Location from 'expo-location';
 
 export default function MapScreen() {
-  const [currentLocation, setCurrentLocation] = useState(null);
   const route = useRoute();
-  const selectedLocation = route.params?.location;
+  const { latitude, longitude } = route.params || {};
+  const [userLocation, setUserLocation] = useState(null);
 
   useEffect(() => {
     (async () => {
-      if (selectedLocation) {
-        setCurrentLocation({
-          latitude: selectedLocation.latitude,
-          longitude: selectedLocation.longitude,
-        });
-      } else {
-        let { status } = await Location.requestForegroundPermissionsAsync();
-        if (status !== 'granted') {
-          Alert.alert('Permission denied');
-          return;
-        }
-        let userLocation = await Location.getCurrentPositionAsync({});
-        setCurrentLocation(userLocation.coords);
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Permission denied');
+        return;
       }
+      let location = await Location.getCurrentPositionAsync({});
+      setUserLocation(location.coords);
     })();
-  }, [selectedLocation]);
+  }, []);
 
   return (
     <View style={{ flex: 1 }}>
       <MapView
         style={{ flex: 1 }}
         initialRegion={{
-          latitude: currentLocation?.latitude || 65.0,
-          longitude: currentLocation?.longitude || 25.0,
+          latitude: latitude || userLocation?.latitude || 65.0,
+          longitude: longitude || userLocation?.longitude || 25.0,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
       >
-        {currentLocation && (
-          <Marker 
-            coordinate={{ 
-              latitude: currentLocation.latitude, 
-              longitude: currentLocation.longitude 
-            }} 
-            title={selectedLocation ? selectedLocation.location : 'Your Location'} 
-          />
+        {userLocation && !latitude && !longitude && (
+          <Marker coordinate={{ latitude: userLocation.latitude, longitude: userLocation.longitude }} />
         )}
+        {latitude && longitude && <Marker coordinate={{ latitude, longitude }} />}
       </MapView>
     </View>
   );

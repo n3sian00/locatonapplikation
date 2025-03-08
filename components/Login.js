@@ -14,7 +14,7 @@ const Login = () => {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       setUser(userCredential.user);
     } catch (error) {
-      console.error('Login error:', error.message);
+      console.error('Login error', error.message);
     }
   };
 
@@ -23,7 +23,7 @@ const Login = () => {
       await signOut(auth);
       setUser(null);
     } catch (error) {
-      console.error('Logout error:', error.message);
+      console.error('Logout error', error.message);
     }
   };
 
@@ -32,7 +32,7 @@ const Login = () => {
       {user ? (
         <>
           <Text style={styles.text}>Welcome, {user.email}</Text>
-          <Button title='Logout' onPress={handleLogout} />
+          <Button title='Logout' onPress={handleLogout} color='black' />
         </>
       ) : (
         <>
@@ -41,16 +41,14 @@ const Login = () => {
             style={styles.input}
             value={email}
             onChangeText={setEmail}
-            placeholder='Enter Email'
-            keyboardType='email-address'
-          />
+            placeholder='Enter email'
+            keyboardType='email-address' />
           <TextInput
             style={styles.input}
             value={password}
             onChangeText={setPassword}
             secureTextEntry
-            placeholder='Enter Password'
-          />
+            placeholder='Enter password'/>
           <Button title='Login' onPress={handleLogin} />
         </>
       )}
@@ -61,14 +59,14 @@ const Login = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center", 
+    justifyContent: 'center',
+    alignItems: 'center', 
     padding: 20,
-    backgroundColor: "#f0f0f0",
+    backgroundColor: '#f0f0f0',
   },
   header: {
     fontSize: 24,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginBottom: 20,
   },
   text: {
@@ -76,12 +74,12 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   input: {
-    width: "80%",
+    width: '80%',
     height: 50,
     borderWidth: 1,
     borderRadius: 10,
     marginBottom: 15,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
   },
 });
 

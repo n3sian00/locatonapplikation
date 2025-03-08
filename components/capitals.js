@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: "#f0f0f0",
+    backgroundColor: '#f0f0f0',
   },
   searchBar: {
     height: 40,
@@ -63,12 +63,12 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginBottom: 10,
     paddingLeft: 10,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
   },
   item: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#fff",
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#fff',
     padding: 10,
     borderRadius: 8,
     marginBottom: 8,
@@ -80,6 +80,6 @@ const styles = StyleSheet.create({
   },
   countryName: {
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
 });
