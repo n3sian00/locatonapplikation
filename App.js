@@ -11,6 +11,8 @@ import LocationList from './components/Locations';
 import Capitals from './components/Capitals';
 import Header from './components/Header';
 
+console.log(process.env.API_KEY)
+
 const Tab = createBottomTabNavigator();
 
 const MainApp = () => {

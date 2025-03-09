@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { signOut } from 'firebase/auth';
 import { AuthContext } from '../firebase/AuthController';
 import { auth } from '../firebase/FirebaseConfig';
-import { MaterialIcons } from '@expo/vector-icons'; // Lisää tämä rivi
+import { MaterialIcons } from '@expo/vector-icons';
 
 const Header = () => {
   const { user, setUser } = useContext(AuthContext);
@@ -46,13 +46,13 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   userContainer: {
-    flexDirection: 'row', // Ikoni ja teksti vierekkäin
+    flexDirection: 'row',
     alignItems: 'center',
   },
   userText: {
     fontSize: 16,
     color: '#fff',
-    marginLeft: 5, // Jättää pienen välin ikonille
+    marginLeft: 5, 
   },
   logoutText: {
     fontSize: 16,

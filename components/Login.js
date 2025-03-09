@@ -49,7 +49,7 @@ const Login = () => {
             onChangeText={setPassword}
             secureTextEntry
             placeholder='Enter password'/>
-          <Button title='Login' onPress={handleLogin} />
+          <Button title='Login' onPress={handleLogin} color='black' />
         </>
       )}
     </View>

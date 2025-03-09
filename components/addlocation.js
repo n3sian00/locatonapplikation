@@ -12,20 +12,25 @@ const AddLocation = () => {
   const [rating, setRating] = useState('');
 
   const handleAddLocation = async () => {
-    let userLocation = await Location.getCurrentPositionAsync({});
-
     try {
       if (!locationName.trim() || !description.trim() || !rating.trim()) {
         throw new Error('Fill in all fields');
       }
+
+      let geoData = await Location.geocodeAsync(locationName);
+      if (geoData.length === 0) {
+        throw new Error('Location not found');
+      }
+
+      let { latitude, longitude } = geoData[0];
 
       await addDoc(collection(db, 'locations'), {
         user: user.email,
         name: locationName.trim(),
         description: description.trim(),
         rating: parseInt(rating),
-        latitude: userLocation.coords.latitude,
-        longitude: userLocation.coords.longitude,
+        latitude,
+        longitude,
         createdAt: new Date(),
       });
 
@@ -33,9 +38,10 @@ const AddLocation = () => {
       setLocationName('');
       setDescription('');
       setRating('');
+
     } catch (error) {
       console.error('Error adding location', error);
-      Alert.alert(error.message || 'Failed to add location');
+      Alert.alert(error.message);
     }
   };
 
