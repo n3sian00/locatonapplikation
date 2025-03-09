@@ -1,25 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, FlatList, Image, StyleSheet } from 'react-native';
 
+// Komponentti, joka hakee ja näyttää maan, pääkaupungin ja lipun
+
 export default function Capitals() {
   const [countries, setCountries] = useState([]);
   const [search, setSearch] = useState("");
 
-  useEffect(() => {
-    fetch("https://restcountries.com/v3.1/all")
+  useEffect(() => { // Hakee maat ja pääkaupungit
+    fetch("https://restcountries.com/v3.1/all") // Hakee kaikki maat API:sta
       .then((response) => response.json())
       .then((data) => {
         const formattedData = data.map((country) => ({
           name: country.name.common,
           capital: country.capital?.[0] || "",
-          flag: country.flags.png,
+          flag: country.flags.png, // Tallentaa valitut tiedot
         }));
         setCountries(formattedData);
       })
       .catch((error) => console.error('Error', error));
   }, []);
 
-  const filteredCountries = countries.filter(
+  const filteredCountries = countries.filter( // Suodattaa maat vastaako hakusana maan tai pääkaupungin nimeä
     (item) =>
       item.name.toLowerCase().includes(search.toLowerCase()) ||
       item.capital.toLowerCase().includes(search.toLowerCase())

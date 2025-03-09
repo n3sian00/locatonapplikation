@@ -5,3 +5,5 @@ module.exports = function (api) {
       plugins: [['module:react-native-dotenv']],
     };
   };  
+
+  // Lataa muuttujat .env tiedostosta

@@ -5,6 +5,8 @@ import { useNavigation } from '@react-navigation/native';
 import { AuthContext } from '../firebase/AuthController';
 import { db } from '../firebase/FirebaseConfig';
 
+// Komponentti, joka hakee ja näyttää käyttäjän lisäämät sijainnit Firestoresta
+
 const Locations = () => {
   const { user } = useContext(AuthContext);
   const [locations, setLocations] = useState([]);
@@ -13,9 +15,9 @@ const Locations = () => {
   useEffect(() => {
     if (!user) return;
 
-    const q = query(collection(db, 'locations'), where('user', '==', user.email));
+    const q = query(collection(db, 'locations'), where('user', '==', user.email)); // Hakee firestoresta kirjautuneen käyttäjän lisäämät sijainnit
 
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+    const unsubscribe = onSnapshot(q, (querySnapshot) => { // Päivittää tiedot reaaliaikaisesti
       const locationsArray = querySnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
@@ -30,13 +32,13 @@ const Locations = () => {
     <View style={styles.container}>
       <Text style={styles.header}>Your locations</Text>
 
-      <FlatList
+      <FlatList // Näyttää sijainnit listana
         data={locations}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <TouchableOpacity
+          <TouchableOpacity // Voi klikata sijaintia siirtyäkseen karttanäkymään (Tai ainaki pitäisi)
             style={styles.locationItem}
-            onPress={() => navigation.navigate('Map', { latitude: item.latitude, longitude: item.longitude })}>
+            onPress={() => navigation.navigate('Map', { latitude: item.latitude, longitude: item.longitude })}> 
             <Text style={styles.locationName}>{item.name}</Text>
             <Text>{item.description}</Text>
             <Text>Rating: {item.rating}</Text>

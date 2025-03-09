@@ -5,26 +5,28 @@ import { db } from '../firebase/FirebaseConfig';
 import { AuthContext } from '../firebase/AuthController';
 import * as Location from 'expo-location';
 
+// Komponentti, joka antaa käyttäjän lisätä uuden sijainnin Firebase Firestoreen
+
 const AddLocation = () => {
   const { user } = useContext(AuthContext);
   const [locationName, setLocationName] = useState('');
   const [description, setDescription] = useState('');
   const [rating, setRating] = useState('');
 
-  const handleAddLocation = async () => {
+  const handleAddLocation = async () => { // Varmistaa että kaikki kentät on täytetty, muuten näyttää varoituksen
     try {
       if (!locationName.trim() || !description.trim() || !rating.trim()) {
         throw new Error('Fill in all fields');
       }
 
-      let geoData = await Location.geocodeAsync(locationName);
+      let geoData = await Location.geocodeAsync(locationName); // Hakee sijainnin koordinaatit
       if (geoData.length === 0) {
         throw new Error('Location not found');
       }
 
-      let { latitude, longitude } = geoData[0];
+      let { latitude, longitude } = geoData[0]; // Muuttaa lokaatiot koordinaateiksi
 
-      await addDoc(collection(db, 'locations'), {
+      await addDoc(collection(db, 'locations'), { // Tallentaa käyttäjän lisäämät lokaatiot Firebase firestoressa
         user: user.email,
         name: locationName.trim(),
         description: description.trim(),
@@ -37,7 +39,7 @@ const AddLocation = () => {
       Alert.alert('Location added successfully');
       setLocationName('');
       setDescription('');
-      setRating('');
+      setRating(''); // Tyhjentää kentät uuden sijainnin lisäämisen jälkeen
 
     } catch (error) {
       console.error('Error adding location', error);

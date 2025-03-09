@@ -4,26 +4,28 @@ import MapView, { Marker } from 'react-native-maps';
 import { useRoute } from '@react-navigation/native';
 import * as Location from 'expo-location';
 
-export default function MapScreen() {
+// Komponentti, joka näyttää karttanäkymän
+
+export default function MapScreen() { // Hakee (tai ainakin pitäisi hakea) valitun sijainnin tai käyttäjän nykyisen sijainnin
   const route = useRoute();
   const { latitude, longitude } = route.params || {};
   const [userLocation, setUserLocation] = useState(null);
 
-  useEffect(() => {
+  useEffect(() => { // Pyytä lupaa käyttäjän sijainnin käyttämiseen
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
         Alert.alert('Permission denied');
         return;
       }
-      let location = await Location.getCurrentPositionAsync({});
+      let location = await Location.getCurrentPositionAsync({}); // Tallentaa nykyisen sijainnin
       setUserLocation(location.coords);
     })();
   }, []);
 
   return (
-    <View style={{ flex: 1 }}>
-      <MapView
+    <View style={{ flex: 1 }}> 
+      <MapView // Näyttää kartan ja ainakin pitäisi näyttää valitun lokaation sijainti(?)
         style={{ flex: 1 }}
         initialRegion={{
           latitude: latitude || userLocation?.latitude || 65.0,
@@ -32,7 +34,7 @@ export default function MapScreen() {
           longitudeDelta: 0.0421,
         }}
       >
-        {userLocation && !latitude && !longitude && (
+        {userLocation && !latitude && !longitude && ( // Näyttää käyttäjän nykyisen sijainnin markerina, jos sijaintia ei ole valittu
           <Marker coordinate={{ latitude: userLocation.latitude, longitude: userLocation.longitude }} />
         )}
         {latitude && longitude && <Marker coordinate={{ latitude, longitude }} />}

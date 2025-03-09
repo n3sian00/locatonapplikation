@@ -11,18 +11,20 @@ import LocationList from './components/Locations';
 import Capitals from './components/Capitals';
 import Header from './components/Header';
 
+// Aloitussivu, jossa käyttäjä kirjautuu sisään, jonka jälkeen tulee navigointi näkyviin
+
 console.log(process.env.API_KEY)
 
 const Tab = createBottomTabNavigator();
 
 const MainApp = () => {
-    const { user } = useContext(AuthContext);
+    const { user } = useContext(AuthContext); // Käyttäjä kirjautuu sisään, AuthContext tarkistaa onko käyttäjä kirjautunut sisään
 
     if (!user) {
         return <LoginScreen />;
     }
 
-    return (
+    return ( // Jos käyttäjä kirjautunut sisään, navigointi tulee näkyviin
         <View style={{ flex: 1 }}>
             <SafeAreaView /> 
             <Header /> 

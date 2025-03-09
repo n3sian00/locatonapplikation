@@ -9,18 +9,18 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const { user, setUser } = useContext(AuthContext);
 
-  const handleLogin = async () => {
+  const handleLogin = async () => { // sisään kirjautuminen
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(auth, email, password); // Firebase Auth metodi sisään kirjautumiseen
       setUser(userCredential.user);
     } catch (error) {
       console.error('Login error', error.message);
     }
   };
 
-  const handleLogout = async () => {
+  const handleLogout = async () => { // Uloskirjautuminen
     try {
-      await signOut(auth);
+      await signOut(auth); //  Firebase Auth metodi uloskirjautumiseen
       setUser(null);
     } catch (error) {
       console.error('Logout error', error.message);
